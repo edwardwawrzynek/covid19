@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import sys
 
 def usage():
-	print("Usage: covid19.py state.csv county.csv [options]... [area]...\narea: \"US\" | state | county,state\noptions:\n\t--log\t:logarithmic y axis\n\t--diff\t:plot 1st derivatives of cases")
+	print("Usage: covid19.py path/to/covid-19-data [options]... [area]...\narea: \"US\" | state | county,state\noptions:\n\t--log\t:logarithmic y axis\n\t--diff\t:plot 1st derivatives of cases")
 	exit(1)
 
 graphAx = None
@@ -66,13 +66,13 @@ def drawUS(data):
 
 def main():
 	global doLog, doDiff
-	if(len(sys.argv) < 3):
+	if(len(sys.argv) < 2):
 		usage()
-	state_file = sys.argv[1]
+	state_file = sys.argv[1] + "/us-states.csv"
 	state_data = pd.read_csv(state_file)
-	county_file = sys.argv[2]
+	county_file = sys.argv[1] + "/us-counties.csv"
 	county_data = pd.read_csv(county_file)
-	for i in range(3, len(sys.argv)):
+	for i in range(2, len(sys.argv)):
 		area = sys.argv[i].split(',')
 		if area[0][0:2] == '--':
 			if area[0] == '--log':
